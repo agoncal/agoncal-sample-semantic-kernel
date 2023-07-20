@@ -2,7 +2,7 @@ package org.agoncal.samples.sk;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
-import com.azure.ai.openai.models.NonAzureOpenAIKeyCredential;
+import com.azure.core.credential.AzureKeyCredential;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.KernelConfig;
 import com.microsoft.semantickernel.builders.SKBuilders;
@@ -20,17 +20,12 @@ public class RedactPassword {
 
     // First step is to create an OpenAI client
     AzureOpenAISettings settings = AIProviderSettings.getAzureOpenAISettingsFromFile("simple/src/main/resources/conf.properties");
-    NonAzureOpenAIKeyCredential credential = new NonAzureOpenAIKeyCredential(settings.getKey());
-    OpenAIAsyncClient client = new OpenAIClientBuilder()
-      .credential(credential)
-      .buildAsyncClient();
+    AzureKeyCredential credential = new AzureKeyCredential(settings.getKey());
+    OpenAIAsyncClient client = new OpenAIClientBuilder().credential(credential).buildAsyncClient();
 
     // Next, we create an instance of the TextCompletion service configured for the text-davinci-003 model and register it for our Kernel configuration
-    TextCompletion textCompletionService = SKBuilders.textCompletionService()
-      .build(client, "text-davinci-003");
-    KernelConfig config = SKBuilders.kernelConfig()
-      .addTextCompletionService("davinci", k -> textCompletionService)
-      .build();
+    TextCompletion textCompletionService = SKBuilders.textCompletionService().build(client, "gpt-35-turbo");
+    KernelConfig config = SKBuilders.kernelConfig().addTextCompletionService("gpt-35-turbo", k -> textCompletionService).build();
 
     // To register these skills into the Kernel while instantiating it, we perform the following
     Kernel kernel = SKBuilders.kernel().withKernelConfig(config).build();
@@ -39,9 +34,7 @@ public class RedactPassword {
     // We use the concept called Planner, which creates a plan based on the prompt, and combines skills to perform a set of actions expected by the user
     SequentialPlanner planner = new SequentialPlanner(kernel, null, null);
 
-    Plan plan = planner.createPlanAsync(
-        "For any input with passwords, redact the passwords and send redacted input to sysadmin@corp.net")
-      .block();
+    Plan plan = planner.createPlanAsync("For any input with passwords, redact the passwords and send redacted input to sysadmin@corp.net").block();
 
     System.out.println(plan.toPlanString());
 
