@@ -1,1 +1,1 @@
-# agoncal-sample-semantic-kernel
+# Samples using Semantic Kernel
