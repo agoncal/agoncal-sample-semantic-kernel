@@ -4,7 +4,7 @@ import com.microsoft.semantickernel.skilldefinition.annotations.DefineSKFunction
 import com.microsoft.semantickernel.skilldefinition.annotations.SKFunctionInputAttribute;
 import com.microsoft.semantickernel.skilldefinition.annotations.SKFunctionParameters;
 
-public class MyAppSkills {
+public class PasswordSkill {
   @DefineSKFunction(name = "redactPassword", description = "Redacts passwords from a message")
   public String redactPassword(
     @SKFunctionInputAttribute String input) {

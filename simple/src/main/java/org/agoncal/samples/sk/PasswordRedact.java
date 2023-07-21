@@ -14,14 +14,15 @@ import com.microsoft.semantickernel.textcompletion.TextCompletion;
 
 import java.io.IOException;
 
-public class RedactPassword {
+public class PasswordRedact {
 
   public static void main(String args[]) throws IOException {
 
-    // First step is to create an OpenAI client
+    // First step is to create an Azure OpenAI client
     AzureOpenAISettings settings = AIProviderSettings.getAzureOpenAISettingsFromFile("simple/src/main/resources/conf.properties");
     AzureKeyCredential credential = new AzureKeyCredential(settings.getKey());
-    OpenAIAsyncClient client = new OpenAIClientBuilder().credential(credential).buildAsyncClient();
+    OpenAIAsyncClient client = new OpenAIClientBuilder().endpoint(settings.getEndpoint()).credential(credential).buildAsyncClient();
+
 
     // Next, we create an instance of the TextCompletion service configured for the text-davinci-003 model and register it for our Kernel configuration
     TextCompletion textCompletionService = SKBuilders.textCompletionService().build(client, "gpt-35-turbo");
@@ -29,7 +30,7 @@ public class RedactPassword {
 
     // To register these skills into the Kernel while instantiating it, we perform the following
     Kernel kernel = SKBuilders.kernel().withKernelConfig(config).build();
-    kernel.importSkill(new MyAppSkills(), "MyAppSkills");
+    kernel.importSkill(new PasswordSkill(), "PasswordSkill");
 
     // We use the concept called Planner, which creates a plan based on the prompt, and combines skills to perform a set of actions expected by the user
     SequentialPlanner planner = new SequentialPlanner(kernel, null, null);
