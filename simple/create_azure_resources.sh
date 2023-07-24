@@ -18,6 +18,12 @@ az group create \
   --tags system="$TAG"
 
 
+# To know which SKUs are available, run:
+#az cognitiveservices account list-skus \
+#  --location "$LOCATION"
+# To know which kinds are available, run:
+#az cognitiveservices account list-kinds
+
 echo "Creating the Cognitive Service..."
 echo "---------------------------------"
 az cognitiveservices account create \
@@ -40,10 +46,16 @@ az cognitiveservices account deployment create \
   --name "$COGNITIVE_SERVICE" \
   --resource-group "$RESOURCE_GROUP" \
   --deployment-name "$COGNITIVE_DEPLOYMENT" \
-  --model-name gpt-35-turbo \
-  --model-version "0301"  \
-  --model-format OpenAI \
+  --model-name "text-embedding-ada-002" \
+  --model-version "1"  \
+  --model-format "OpenAI" \
   --scale-settings-scale-type "Standard"
+
+
+#az cognitiveservices account deployment show \
+#  --name "$COGNITIVE_SERVICE" \
+#  --resource-group "$RESOURCE_GROUP" \
+#  --deployment-name "$COGNITIVE_DEPLOYMENT"
 
 
 echo "Storing the key and endpoint in environment variables..."
