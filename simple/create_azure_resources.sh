@@ -4,7 +4,7 @@ echo "Seting up environment variables..."
 echo "----------------------------------"
 PROJECT="semantic-kernel"
 RESOURCE_GROUP="rg-$PROJECT"
-COGNITIVE_SERVICE="cog-$PROJECT"
+COGNITIVE_SERVICE="cognit-$PROJECT"
 COGNITIVE_DEPLOYMENT="deploy-$PROJECT"
 LOCATION="eastus"
 TAG="$PROJECT"
@@ -30,6 +30,7 @@ az cognitiveservices account create \
   --name "$COGNITIVE_SERVICE" \
   --resource-group "$RESOURCE_GROUP" \
   --location "$LOCATION" \
+  --custom-domain "$COGNITIVE_SERVICE" \
   --tags system="$TAG" \
   --kind OpenAI \
   --sku S0
@@ -47,7 +48,7 @@ az cognitiveservices account deployment create \
   --resource-group "$RESOURCE_GROUP" \
   --deployment-name "$COGNITIVE_DEPLOYMENT" \
   --model-name "text-embedding-ada-002" \
-  --model-version "1"  \
+  --model-version "2"  \
   --model-format "OpenAI" \
   --scale-settings-scale-type "Standard"
 
@@ -87,3 +88,8 @@ echo "client.azureopenai.deploymentname=$COGNITIVE_DEPLOYMENT"
 #az group delete \
 #  --name "$RESOURCE_GROUP" \
 #  --yes
+
+#az cognitiveservices account purge \
+#  --name "$COGNITIVE_SERVICE" \
+#  --resource-group "$RESOURCE_GROUP" \
+#  --location "$LOCATION"
