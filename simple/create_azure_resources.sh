@@ -32,8 +32,8 @@ az cognitiveservices account create \
   --location "$LOCATION" \
   --custom-domain "$COGNITIVE_SERVICE" \
   --tags system="$TAG" \
-  --kind OpenAI \
-  --sku S0
+  --kind "OpenAI" \
+  --sku "S0"
 
 # To know which models are available, run:
 #az cognitiveservices account list-models \
@@ -89,7 +89,11 @@ echo "client.azureopenai.deploymentname=$COGNITIVE_DEPLOYMENT"
 #  --name "$RESOURCE_GROUP" \
 #  --yes
 
-#az cognitiveservices account purge \
-#  --name "$COGNITIVE_SERVICE" \
-#  --resource-group "$RESOURCE_GROUP" \
-#  --location "$LOCATION"
+az cognitiveservices account purge \
+  --name "cognit-semantic-kernel" \
+  --resource-group "$RESOURCE_GROUP" \
+  --location "$LOCATION"
+
+az cognitiveservices account delete \
+  --name "$COGNITIVE_SERVICE" \
+  --resource-group "$RESOURCE_GROUP"
