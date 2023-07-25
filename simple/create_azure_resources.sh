@@ -89,11 +89,11 @@ echo "client.azureopenai.deploymentname=$COGNITIVE_DEPLOYMENT"
 #  --name "$RESOURCE_GROUP" \
 #  --yes
 
-az cognitiveservices account purge \
-  --name "cognit-semantic-kernel" \
-  --resource-group "$RESOURCE_GROUP" \
-  --location "$LOCATION"
+#az cognitiveservices account purge \
+#  --name "cognit-semantic-kernel" \
+#  --resource-group "$RESOURCE_GROUP" \
+#  --location "$LOCATION"
 
-az cognitiveservices account delete \
-  --name "$COGNITIVE_SERVICE" \
-  --resource-group "$RESOURCE_GROUP"
+#az cognitiveservices account delete \
+#  --name "$COGNITIVE_SERVICE" \
+#  --resource-group "$RESOURCE_GROUP"
