@@ -29,17 +29,17 @@ public class SendEmail {
     AzureOpenAISettings settings = AIProviderSettings.getAzureOpenAISettingsFromFile("src/main/resources/conf.properties");
     OpenAIAsyncClient client = new OpenAIClientBuilder().endpoint(settings.getEndpoint()).credential(new AzureKeyCredential(settings.getKey())).buildAsyncClient();
 
-    // Create an instance of the TextCompletion service and register it for our Kernel configuration
-    TextCompletion textCompletionService = SKBuilders.textCompletionService().build(client, "text-embedding-ada-002");
-    KernelConfig config = SKBuilders.kernelConfig().addTextCompletionService("davinci", kernel -> textCompletionService).build();
+    // Create an instance of the TextCompletion service and register it for the Kernel configuration
+    TextCompletion textCompletion = SKBuilders.chatCompletion().build(client, settings.getDeploymentName());
+    KernelConfig config = SKBuilders.kernelConfig().addTextCompletionService("text-completion", kernel -> textCompletion).build();
 
-    // Register skills into the Kernel and instantiate it
+    // Instantiates the Kernel and registers skills
     Kernel kernel = SKBuilders.kernel().withKernelConfig(config).build();
     kernel.importSkill(new StringFunctions(), "StringFunctions");
     kernel.importSkill(new Emailer(), "Emailer");
     kernel.importSkill(new Names(), "Names");
 
-    // Creates a planner that will create a plan based on the prompt, and combine skills to perform a set of actions expected by the user
+    // Creates a plan based on the prompt, and combines skills to perform a set of actions expected by the user
     SequentialPlanner planner = new SequentialPlanner(kernel, null, null);
 
     Plan plan = planner.createPlanAsync("Send the input as an email to Steven and make sure I use his preferred name in the email").block();
@@ -49,15 +49,16 @@ public class SendEmail {
     System.out.println("===============================================================================");
 
 
-    SKContext context = SKBuilders.context().build();
-    context.setVariable("subject", "Update");
-
-    String message = "Hay Steven, just wanted to let you know I have finished.";
+    // Set up the context
+    SKContext emailContext = SKBuilders.context().build();
+    emailContext.setVariable("subject", "Update");
+    emailContext.setVariable("message", "Hay Steven, just wanted to let you know I have finished.");
 
     System.out.println("\n\nExecuting plan...");
-    SKContext planResult = plan.invokeAsync(message, context, null).block();
+    SKContext planResult = plan.invokeAsync(emailContext).block();
 
-    System.out.println("\n\nPlan Result: " + planResult.getResult());
+    System.out.println(" === Result of the plan === ");
+    System.out.println(planResult.getResult());
   }
 
   public static class StringFunctions {

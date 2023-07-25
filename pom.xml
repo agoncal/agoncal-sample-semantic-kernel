@@ -19,7 +19,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <!-- Semantic Kernel -->
-    <version.semantic-kernel>0.2.7-alpha</version.semantic-kernel>
+    <version.semantic-kernel>0.2.8-alpha-SNAPSHOT</version.semantic-kernel>
     <!-- Other -->
     <version.log4j2>2.20.0</version.log4j2>
     <version.junit>5.9.0</version.junit>
@@ -54,13 +54,13 @@
         <!-- <scope>runtime</scope> -->
       </dependency>
       <dependency>
-        <groupId>com.microsoft.semantic-kernel.extensions</groupId>
-        <artifactId>semantickernel-sequentialplanner-extension</artifactId>
+        <groupId>com.microsoft.semantic-kernel</groupId>
+        <artifactId>semantickernel-planners</artifactId>
         <version>${version.semantic-kernel}</version>
       </dependency>
       <dependency>
-        <groupId>com.microsoft.semantic-kernel.connectors</groupId>
-        <artifactId>semantickernel-connectors</artifactId>
+        <groupId>com.microsoft.semantic-kernel</groupId>
+        <artifactId>semantickernel-connectors-ai-openai</artifactId>
         <version>${version.semantic-kernel}</version>
       </dependency>
       <dependency>

@@ -1,3 +1,4 @@
+// Copyright (c) Microsoft. All rights reserved.
 package org.agoncal.samples.sk;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
@@ -9,17 +10,18 @@ import com.microsoft.semantickernel.builders.SKBuilders;
 import com.microsoft.semantickernel.connectors.ai.openai.util.AIProviderSettings;
 import com.microsoft.semantickernel.connectors.ai.openai.util.AzureOpenAISettings;
 import com.microsoft.semantickernel.orchestration.SKContext;
-import com.microsoft.semantickernel.skilldefinition.ReadOnlyFunctionCollection;
-import com.microsoft.semantickernel.textcompletion.CompletionSKFunction;
+import com.microsoft.semantickernel.skilldefinition.annotations.DefineSKFunction;
+import com.microsoft.semantickernel.skilldefinition.annotations.SKFunctionInputAttribute;
+import com.microsoft.semantickernel.skilldefinition.annotations.SKFunctionParameters;
 import com.microsoft.semantickernel.textcompletion.TextCompletion;
 import org.slf4j.Logger;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
-public class SayAJoke {
+public class SummarizeASearch {
 
-  private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SayAJoke.class);
+  private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SendEmail.class);
 
   public static void main(String[] args) throws IOException {
 
@@ -33,15 +35,34 @@ public class SayAJoke {
 
     // Instantiates the Kernel and registers skills
     Kernel kernel = SKBuilders.kernel().withKernelConfig(config).build();
-    ReadOnlyFunctionCollection skill = kernel.importSkillFromDirectory("FunSkill", "src/main/resources", "FunSkill");
-    CompletionSKFunction jokeFunction = skill.getFunction("Joke", CompletionSKFunction.class);
+    kernel.importSkill(new SearchEngineSkill(), null);
+    kernel.importSkillFromDirectory("SummarizeSkill", "src/main/resources", "SummarizeSkill");
 
-    // Ask for a Joke
-    SKContext jokeContext = SKBuilders.context().build();
-    jokeContext.setVariable("style", "a poem written in the style of Shakespeare");
-    jokeContext.setVariable("input", "about dinosaur");
-    Mono<SKContext> result = jokeFunction.invokeAsync(jokeContext);
+    // Run
+    String question = "What's the tallest building in South America?";
+    LOGGER.info("The question: \"{}\"", question);
 
-    LOGGER.info("The joke is: \n\n{}", result.block().getResult());
+    Mono<SKContext> result = kernel.runAsync(question,
+      kernel.getSkills().getFunction("Search", null)
+    );
+
+    LOGGER.info("The answer to the question: \"{}\"", result.block().getResult());
+
+    result = kernel.runAsync(question,
+      kernel.getSkills().getFunction("Search", null),
+      kernel.getSkill("SummarizeSkill").getFunction("Summarize", null)
+    );
+
+    LOGGER.info("The summarized answer: \"{}\"", result.block().getResult());
+  }
+
+  public static class SearchEngineSkill {
+    @DefineSKFunction(description = "Append the day variable", name = "search")
+    public Mono<String> search(
+      @SKFunctionInputAttribute
+      @SKFunctionParameters(description = "Text to search", name = "input")
+      String input) {
+      return Mono.just("Gran Torre Santiago is the tallest building in South America");
+    }
   }
 }

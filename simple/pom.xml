@@ -20,12 +20,12 @@
       <artifactId>semantickernel-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.microsoft.semantic-kernel.extensions</groupId>
-      <artifactId>semantickernel-sequentialplanner-extension</artifactId>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-planners</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.microsoft.semantic-kernel.connectors</groupId>
-      <artifactId>semantickernel-connectors</artifactId>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-connectors-ai-openai</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
@@ -43,7 +43,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <configuration>
-          <mainClass>org.agoncal.samples.sk.RedactPassword</mainClass>
+          <mainClass>org.agoncal.samples.sk.SayAJoke</mainClass>
         </configuration>
       </plugin>
     </plugins>

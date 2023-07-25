@@ -36,9 +36,9 @@ az cognitiveservices account create \
   --sku "S0"
 
 # To know which models are available, run:
-#az cognitiveservices account list-models \
-#  --name "$COGNITIVE_SERVICE" \
-#  --resource-group "$RESOURCE_GROUP" \
+az cognitiveservices account list-models \
+  --name "$COGNITIVE_SERVICE" \
+  --resource-group "$RESOURCE_GROUP"
 
 
 echo "Deploying the model..."
@@ -47,8 +47,8 @@ az cognitiveservices account deployment create \
   --name "$COGNITIVE_SERVICE" \
   --resource-group "$RESOURCE_GROUP" \
   --deployment-name "$COGNITIVE_DEPLOYMENT" \
-  --model-name "text-embedding-ada-002" \
-  --model-version "2"  \
+  --model-name "gpt-35-turbo" \
+  --model-version "0301"  \
   --model-format "OpenAI" \
   --scale-settings-scale-type "Standard"
 

@@ -8,6 +8,7 @@ import com.microsoft.semantickernel.KernelConfig;
 import com.microsoft.semantickernel.builders.SKBuilders;
 import com.microsoft.semantickernel.connectors.ai.openai.util.AIProviderSettings;
 import com.microsoft.semantickernel.connectors.ai.openai.util.AzureOpenAISettings;
+import com.microsoft.semantickernel.orchestration.SKContext;
 import com.microsoft.semantickernel.planner.actionplanner.Plan;
 import com.microsoft.semantickernel.planner.sequentialplanner.SequentialPlanner;
 import com.microsoft.semantickernel.skilldefinition.annotations.DefineSKFunction;
@@ -22,17 +23,17 @@ public class RedactPassword {
 
   private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(RedactPassword.class);
 
-  public static void main(String args[]) throws IOException {
+  public static void main(String[] args) throws IOException {
 
     // Create an Azure OpenAI client
     AzureOpenAISettings settings = AIProviderSettings.getAzureOpenAISettingsFromFile("src/main/resources/conf.properties");
     OpenAIAsyncClient client = new OpenAIClientBuilder().endpoint(settings.getEndpoint()).credential(new AzureKeyCredential(settings.getKey())).buildAsyncClient();
 
-    // Create an instance of the TextCompletion service and register it for our Kernel configuration
-    TextCompletion textCompletionService = SKBuilders.textCompletionService().build(client, "text-embedding-ada-002");
-    KernelConfig config = SKBuilders.kernelConfig().addTextCompletionService("ada", k -> textCompletionService).build();
+    // Create an instance of the TextCompletion service and register it for the Kernel configuration
+    TextCompletion textCompletion = SKBuilders.chatCompletion().build(client, settings.getDeploymentName());
+    KernelConfig config = SKBuilders.kernelConfig().addTextCompletionService("text-completion", kernel -> textCompletion).build();
 
-    // Register skills into the Kernel and instantiate it
+    // Instantiates the Kernel and registers skills
     Kernel kernel = SKBuilders.kernel().withKernelConfig(config).build();
     kernel.importSkill(new PasswordSkill(), "PasswordSkill");
 
@@ -41,13 +42,20 @@ public class RedactPassword {
 
     Plan plan = planner.createPlanAsync("For any input with passwords, redact the passwords and send redacted input to sysadmin@corp.net").block();
 
+    System.out.println("\n\n=============================== Plan to execute ===============================");
     System.out.println(plan.toPlanString());
+    System.out.println("===============================================================================");
 
-    String message = "Password changed to password.db=123456abc";
-    String result = plan.invokeAsync(message).block().getResult();
+    // Set up the context
+    SKContext emailContext = SKBuilders.context().build();
+    emailContext.setVariable("subject", "Update");
+    emailContext.setVariable("email", "sysadmin@corp.net");
+
+    System.out.println("\n\nExecuting plan...");
+    SKContext planResult = plan.invokeAsync(emailContext).block();
 
     System.out.println(" === Result of the plan === ");
-    System.out.println(result);
+    System.out.println(planResult.getResult());
   }
 
   public static class PasswordSkill {
