@@ -19,7 +19,7 @@ public class PasswordRedact {
   public static void main(String args[]) throws IOException {
 
     // First step is to create an Azure OpenAI client
-    AzureOpenAISettings settings = AIProviderSettings.getAzureOpenAISettingsFromFile("simple/src/main/resources/conf.properties");
+    AzureOpenAISettings settings = AIProviderSettings.getAzureOpenAISettingsFromFile("src/main/resources/conf.properties");
     AzureKeyCredential credential = new AzureKeyCredential(settings.getKey());
     OpenAIAsyncClient client = new OpenAIClientBuilder().endpoint(settings.getEndpoint()).credential(credential).buildAsyncClient();
 
