@@ -13,6 +13,11 @@ Simple examples that show how to use the Semantic Kernel.
 
 ## Super Heroes
 
+To run this sample you need to:
+
+* Set the API key in `conf.properties` (see above)
+* Run `mvn exec:java`
+
 This sample shows how to use the Semantic Kernel to narrate a fight between a Super Hero and a Super Villain.
 The prompt that we create looks like this:
 
