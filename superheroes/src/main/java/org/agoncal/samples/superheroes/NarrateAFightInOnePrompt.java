@@ -37,14 +37,14 @@ public class NarrateAFightInOnePrompt {
     CompletionSKFunction fightFunction = skill.getFunction("Fight", CompletionSKFunction.class);
 
     // Ask for a Joke
-    SKContext jokeContext = SKBuilders.context().build();
-    jokeContext.setVariable("villain_name", "Darth Vader");
-    jokeContext.setVariable("villain_powers", "Accelerated Healing, Agility, Astral Projection, Cloaking, Danger Sense, Durability, Electrokinesis, Energy Blasts, Enhanced Hearing, Enhanced Senses, Force Fields, Hypnokinesis, Illusions, Intelligence, Jump, Light Control, Marksmanship, Precognition, Psionic Powers, Reflexes, Stealth, Super Speed, Telekinesis, Telepathy, The Force, Weapons Master");
-    jokeContext.setVariable("villain_level", "13");
-    jokeContext.setVariable("hero_name", "Chewbacca");
-    jokeContext.setVariable("hero_powers", "Agility, Longevity, Marksmanship, Natural Weapons, Stealth, Super Strength, Weapons Master");
-    jokeContext.setVariable("hero_level", "5");
-    Mono<SKContext> result = fightFunction.invokeAsync(jokeContext);
+    SKContext fightContext = SKBuilders.context().build();
+    fightContext.setVariable("villain_name", "Darth Vader");
+    fightContext.setVariable("villain_powers", "Accelerated Healing, Agility, Astral Projection, Cloaking, Danger Sense, Durability, Electrokinesis, Energy Blasts, Enhanced Hearing, Enhanced Senses, Force Fields, Hypnokinesis, Illusions, Intelligence, Jump, Light Control, Marksmanship, Precognition, Psionic Powers, Reflexes, Stealth, Super Speed, Telekinesis, Telepathy, The Force, Weapons Master");
+    fightContext.setVariable("villain_level", "13");
+    fightContext.setVariable("hero_name", "Chewbacca");
+    fightContext.setVariable("hero_powers", "Agility, Longevity, Marksmanship, Natural Weapons, Stealth, Super Strength, Weapons Master");
+    fightContext.setVariable("hero_level", "5");
+    Mono<SKContext> result = fightFunction.invokeAsync(fightContext);
 
     LOGGER.info("The narration for the fight is: \n\n{}", result.block().getResult());
   }
