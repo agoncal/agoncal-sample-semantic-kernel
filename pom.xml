@@ -12,6 +12,7 @@
 
   <modules>
     <module>simple</module>
+    <module>superheroes</module>
   </modules>
 
   <properties>
