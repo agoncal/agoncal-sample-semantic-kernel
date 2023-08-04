@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "description": "Narrates the fight between a Super Hero and a Super Villain",
+  "description": "Narrates the fight between a Super Hero and a Super Villain using a single prompt",
   "type": "completion",
   "completion": {
     "max_tokens": 1000,

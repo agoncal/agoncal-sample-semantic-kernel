@@ -1,12 +1,31 @@
 {
   "schema": 1,
-  "description": "Turn a scenario into a creative or humorous excuse to send your boss",
+  "description": "Gives the biography of a Super Hero",
   "type": "completion",
   "completion": {
-    "max_tokens": 60,
-    "temperature": 0.5,
+    "max_tokens": 1000,
+    "temperature": 0.9,
     "top_p": 0.0,
     "presence_penalty": 0.0,
     "frequency_penalty": 0.0
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "hero_name",
+        "description": "The name of the Super Hero",
+        "defaultValue": "Chewbacca"
+      },
+      {
+        "name": "hero_powers",
+        "description": "The coma separated list of powers of the Super Hero",
+        "defaultValue": "Agility, Longevity, Marksmanship, Natural Weapons, Stealth, Super Strength, Weapons Master"
+      },
+      {
+        "name": "hero_level",
+        "description": "A number representing the level of the Super Hero",
+        "defaultValue": "5"
+      }
+    ]
   }
 }

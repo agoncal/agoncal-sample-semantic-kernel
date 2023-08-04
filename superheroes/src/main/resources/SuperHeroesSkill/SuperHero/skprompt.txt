@@ -1,6 +1,17 @@
-Generate a creative reason or excuse for the given event. Be creative and be funny. Let your imagination run wild.
+ACT LIKE YOU WERE A MARVEL COMICS WRITTER, EXPERT IN ALL SORTS OF SUPER HEROES.
+WRITE A BIOGRAPHY IN 2 PARAGRAPHS MAXIMUM OF A SUPER HERO.
 
-Event:I am running late.
-Excuse:I was being held ransom by giraffe gangsters. 
+THE NARRATION MUST BE:
+- G RATED
+- WORKPLACE/FAMILY SAFE
+NO SEXISM, RACISM OR OTHER BIAS/BIGOTRY
 
-Event:{{$input}}
+BE CREATIVE.
+
+HERE IS THE DATA YOU WILL USE FOR THE SUPER HERO:
+
++++++
+name:   {{$hero_name}}
+powers: {{$hero_powers}}
+level:  {{$hero_level}}
++++++

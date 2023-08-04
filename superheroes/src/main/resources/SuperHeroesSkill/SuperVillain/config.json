@@ -1,25 +1,30 @@
 {
   "schema": 1,
-  "description": "Generate a funny limerick about a person",
+  "description": "Gives the biography of a Super Villain",
   "type": "completion",
   "completion": {
-    "max_tokens": 100,
+    "max_tokens": 1000,
     "temperature": 0.7,
-    "top_p": 0,
-    "presence_penalty": 0,
-    "frequency_penalty": 0
+    "top_p": 0.0,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0
   },
   "input": {
     "parameters": [
       {
-        "name": "name",
-        "description": "",
-        "defaultValue": "Bob"
+        "name": "villain_name",
+        "description": "The name of the Super Villain",
+        "defaultValue": "Darth Vader"
       },
       {
-        "name": "input",
-        "description": "",
-        "defaultValue": "Dogs"
+        "name": "villain_powers",
+        "description": "The coma separated list of powers of the Super Villain",
+        "defaultValue": "Accelerated Healing, Agility, Astral Projection, Cloaking, Danger Sense, Durability, Electrokinesis, Energy Blasts, Enhanced Hearing, Enhanced Senses, Force Fields, Hypnokinesis, Illusions, Intelligence, Jump, Light Control, Marksmanship, Precognition, Psionic Powers, Reflexes, Stealth, Super Speed, Telekinesis, Telepathy, The Force, Weapons Master"
+      },
+      {
+        "name": "villain_level",
+        "description": "A number representing the level of the Super Villain",
+        "defaultValue": "13"
       }
     ]
   }

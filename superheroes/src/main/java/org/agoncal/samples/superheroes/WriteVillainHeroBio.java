@@ -17,9 +17,9 @@ import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 
-public class NarrateAFightInOnePrompt {
+public class WriteVillainHeroBio {
 
-  private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(NarrateAFightInOnePrompt.class);
+  private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(WriteVillainHeroBio.class);
 
   public static void main(String[] args) throws IOException {
 
@@ -34,18 +34,15 @@ public class NarrateAFightInOnePrompt {
     // Instantiates the Kernel and registers skills
     Kernel kernel = SKBuilders.kernel().withKernelConfig(config).build();
     ReadOnlyFunctionCollection skill = kernel.importSkillFromDirectory("SuperHeroesSkill", "src/main/resources", "SuperHeroesSkill");
-    CompletionSKFunction fightFunction = skill.getFunction("FightInOnePrompt", CompletionSKFunction.class);
+    CompletionSKFunction fightFunction = skill.getFunction("SuperVillain", CompletionSKFunction.class);
 
     // Ask for a Joke
-    SKContext fightContext = SKBuilders.context().build();
-    fightContext.setVariable("villain_name", "Darth Vader");
-    fightContext.setVariable("villain_powers", "Accelerated Healing, Agility, Astral Projection, Cloaking, Danger Sense, Durability, Electrokinesis, Energy Blasts, Enhanced Hearing, Enhanced Senses, Force Fields, Hypnokinesis, Illusions, Intelligence, Jump, Light Control, Marksmanship, Precognition, Psionic Powers, Reflexes, Stealth, Super Speed, Telekinesis, Telepathy, The Force, Weapons Master");
-    fightContext.setVariable("villain_level", "13");
-    fightContext.setVariable("hero_name", "Chewbacca");
-    fightContext.setVariable("hero_powers", "Agility, Longevity, Marksmanship, Natural Weapons, Stealth, Super Strength, Weapons Master");
-    fightContext.setVariable("hero_level", "5");
-    Mono<SKContext> result = fightFunction.invokeAsync(fightContext);
+    SKContext bioContext = SKBuilders.context().build();
+    bioContext.setVariable("villain_name", "Darth Vader");
+    bioContext.setVariable("villain_powers", "Accelerated Healing, Agility, Astral Projection, Cloaking, Danger Sense, Durability, Electrokinesis, Energy Blasts, Enhanced Hearing, Enhanced Senses, Force Fields, Hypnokinesis, Illusions, Intelligence, Jump, Light Control, Marksmanship, Precognition, Psionic Powers, Reflexes, Stealth, Super Speed, Telekinesis, Telepathy, The Force, Weapons Master");
+    bioContext.setVariable("villain_level", "13");
+    Mono<SKContext> result = fightFunction.invokeAsync(bioContext);
 
-    LOGGER.info("The narration for the fight is: \n\n{}", result.block().getResult());
+    LOGGER.info("The bio of {}: \n\n{}", bioContext.getVariables().get("villain_name"), result.block().getResult());
   }
 }

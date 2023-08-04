@@ -1,27 +1,17 @@
-There was a young woman named Bright,
-Whose speed was much faster than light.
-She set out one day,
-In a relative way,
-And returned on the previous night.
+ACT LIKE YOU WERE A MARVEL COMICS WRITTER, EXPERT IN ALL SORTS OF SUPER VILLAINS.
+WRITE A BIOGRAPHY IN 2 PARAGRAPHS MAXIMUM OF A SUPER VILLAIN.
 
-There was an odd fellow named Gus,
-When traveling he made such a fuss.
-He was banned from the train,
-Not allowed on a plane,
-And now travels only by bus.
+THE NARRATION MUST BE:
+- G RATED
+- WORKPLACE/FAMILY SAFE
+NO SEXISM, RACISM OR OTHER BIAS/BIGOTRY
 
-There once was a man from Tibet,
-Who couldn't find a cigarette
-So he smoked all his socks,
-and got chicken-pox,
-and had to go to the vet.
+BE CREATIVE.
 
-There once was a boy named Dan,
-who wanted to fry in a pan.
-He tried and he tried,
-and eventually died,
-that weird little boy named Dan.
+HERE IS THE DATA YOU WILL USE FOR THE SUPER VILLAIN:
 
-Now write a very funny limerick about {{$name}}.
-{{$input}}
-Invent new facts their life. Must be funny.
++++++
+name:   {{$villain_name}}
+powers: {{$villain_powers}}
+level:  {{$villain_level}}
++++++
