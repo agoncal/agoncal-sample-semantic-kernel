@@ -28,6 +28,6 @@ level:  {{$hero_level}}
 HERE IS THE DATA YOU WILL USE FOR THE FIGHT:
 
 +++++
-{{$hero_name}} HAS WON THE FIGHT AGAINST {{$villain_name}}
+THE SUPER VILLAIN HAS WON THE FIGHT
 +++++
 
