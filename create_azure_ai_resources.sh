@@ -77,12 +77,11 @@ AZUREOPENAI_ENDPOINT=$(
 
 # Set the properties
 echo "--------------------------------------------------"
-echo "Copy the following properties to the simple/src/main/resources/conf.properties file:"
+echo "The following properties can be copied either to the ./conf.properties or to the ~/.sk/conf.properties file:"
 echo "--------------------------------------------------"
 echo "client.azureopenai.key=$AZUREOPENAI_KEY"
 echo "client.azureopenai.endpoint=$AZUREOPENAI_ENDPOINT"
 echo "client.azureopenai.deploymentname=$COGNITIVE_DEPLOYMENT"
-
 
 # Clean up
 #az group delete \

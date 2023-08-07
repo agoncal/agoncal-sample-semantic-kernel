@@ -2,13 +2,10 @@
 package org.agoncal.samples.sk;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
-import com.azure.ai.openai.OpenAIClientBuilder;
-import com.azure.core.credential.AzureKeyCredential;
 import com.microsoft.semantickernel.Kernel;
-import com.microsoft.semantickernel.KernelConfig;
 import com.microsoft.semantickernel.builders.SKBuilders;
-import com.microsoft.semantickernel.connectors.ai.openai.util.AIProviderSettings;
-import com.microsoft.semantickernel.connectors.ai.openai.util.AzureOpenAISettings;
+import com.microsoft.semantickernel.connectors.ai.openai.util.OpenAIClientProvider;
+import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.orchestration.SKContext;
 import com.microsoft.semantickernel.skilldefinition.annotations.DefineSKFunction;
 import com.microsoft.semantickernel.skilldefinition.annotations.SKFunctionInputAttribute;
@@ -17,24 +14,22 @@ import com.microsoft.semantickernel.textcompletion.TextCompletion;
 import org.slf4j.Logger;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-
 public class SummarizeASearch {
 
   private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(SendEmail.class);
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws ConfigurationException {
 
-    // Create an Azure OpenAI client
-    AzureOpenAISettings settings = AIProviderSettings.getAzureOpenAISettingsFromFile("src/main/resources/conf.properties");
-    OpenAIAsyncClient client = new OpenAIClientBuilder().endpoint(settings.getEndpoint()).credential(new AzureKeyCredential(settings.getKey())).buildAsyncClient();
+    // Creates an Azure OpenAI client
+    OpenAIAsyncClient client = OpenAIClientProvider.getClient();
 
-    // Create an instance of the TextCompletion service and register it for the Kernel configuration
-    TextCompletion textCompletion = SKBuilders.chatCompletion().build(client, settings.getDeploymentName());
-    KernelConfig config = SKBuilders.kernelConfig().addTextCompletionService("text-completion", kernel -> textCompletion).build();
+    // Creates an instance of the TextCompletion service
+    TextCompletion textCompletion = SKBuilders.chatCompletion().build(client, "deploy-semantic-kernel");
 
-    // Instantiates the Kernel and registers skills
-    Kernel kernel = SKBuilders.kernel().withKernelConfig(config).build();
+    // Instantiates the Kernel
+    Kernel kernel = SKBuilders.kernel().withDefaultAIService(textCompletion).build();
+
+    // Registers skills
     kernel.importSkill(new SearchEngineSkill(), null);
     kernel.importSkillFromDirectory("SummarizeSkill", "src/main/resources", "SummarizeSkill");
 
@@ -59,7 +54,7 @@ public class SummarizeASearch {
   public static class SearchEngineSkill {
     @DefineSKFunction(description = "Append the day variable", name = "search")
     public Mono<String> search(
-      @SKFunctionInputAttribute
+      @SKFunctionInputAttribute(description = "the input")
       @SKFunctionParameters(description = "Text to search", name = "input")
       String input) {
       return Mono.just("Gran Torre Santiago is the tallest building in South America");

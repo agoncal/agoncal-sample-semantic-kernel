@@ -13,8 +13,8 @@
     <Logger name="io.netty" level="warn">
       <AppenderRef ref="Console"/>
     </Logger>
-    <!--<Root level="debug">-->
-    <Root level="info">
+    <Root level="debug">
+<!--    <Root level="info">-->
       <AppenderRef ref="Console"/>
     </Root>
   </Loggers>
