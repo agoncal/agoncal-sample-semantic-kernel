@@ -2,7 +2,7 @@ package org.agoncal.samples.sk;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.microsoft.semantickernel.Kernel;
-import com.microsoft.semantickernel.builders.SKBuilders;
+import com.microsoft.semantickernel.SKBuilders;
 import com.microsoft.semantickernel.connectors.ai.openai.util.OpenAIClientProvider;
 import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.orchestration.SKContext;
@@ -22,7 +22,7 @@ public class SayAJoke {
     OpenAIAsyncClient client = OpenAIClientProvider.getClient();
 
     // Creates an instance of the TextCompletion service
-    TextCompletion textCompletion = SKBuilders.chatCompletion().build(client, "deploy-semantic-kernel");
+    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).setModelId("deploy-semantic-kernel").build();
 
     // Instantiates the Kernel
     Kernel kernel = SKBuilders.kernel().withDefaultAIService(textCompletion).build();

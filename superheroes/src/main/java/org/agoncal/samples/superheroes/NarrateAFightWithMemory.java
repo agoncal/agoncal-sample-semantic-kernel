@@ -1,12 +1,9 @@
 package org.agoncal.samples.superheroes;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
-import com.azure.ai.openai.OpenAIClientBuilder;
-import com.azure.core.credential.AzureKeyCredential;
 import com.microsoft.semantickernel.Kernel;
+import com.microsoft.semantickernel.SKBuilders;
 import com.microsoft.semantickernel.ai.embeddings.EmbeddingGeneration;
-import com.microsoft.semantickernel.builders.SKBuilders;
-import com.microsoft.semantickernel.connectors.ai.openai.util.AzureOpenAISettings;
 import com.microsoft.semantickernel.connectors.ai.openai.util.OpenAIClientProvider;
 import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.memory.MemoryStore;
@@ -29,10 +26,10 @@ public class NarrateAFightWithMemory {
     OpenAIAsyncClient client = OpenAIClientProvider.getClient();
 
     // Creates an instance of the TextCompletion service
-    TextCompletion textCompletion = SKBuilders.chatCompletion().build(client, "deploy-semantic-kernel");
+    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).setModelId("deploy-semantic-kernel").build();
 
     // Create an instance of the EmbeddingGeneration service
-    EmbeddingGeneration textEmbeddingGeneration = SKBuilders.textEmbeddingGenerationService().build(client, "text-embedding-ada-002");
+    EmbeddingGeneration textEmbeddingGeneration = SKBuilders.textEmbeddingGenerationService().withOpenAIClient(client).setModelId("text-embedding-ada-002").build();
 
     // Create a memory store
     MemoryStore memoryStore = SKBuilders.memoryStore().build();
