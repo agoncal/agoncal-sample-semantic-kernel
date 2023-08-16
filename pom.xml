@@ -13,6 +13,7 @@
   <modules>
     <module>simple</module>
     <module>superheroes</module>
+    <module>quarkus</module>
   </modules>
 
   <properties>
