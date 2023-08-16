@@ -25,6 +25,7 @@
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0</surefire-plugin.version>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -36,7 +37,29 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <dependencies>
+    <dependency>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-planners</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-connectors-ai-openai</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jsonb</artifactId>
