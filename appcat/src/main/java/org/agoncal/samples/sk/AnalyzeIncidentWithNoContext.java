@@ -22,7 +22,7 @@ public class AnalyzeIncidentWithNoContext {
     OpenAIAsyncClient client = OpenAIClientProvider.getClient();
 
     // Creates an instance of the TextCompletion service
-    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).setModelId("deploy-semantic-kernel").build();
+    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).setModelId("deploy-semantic-kernel-16k").build();
 
     // Instantiates the Kernel
     Kernel kernel = SKBuilders.kernel().withDefaultAIService(textCompletion).build();
