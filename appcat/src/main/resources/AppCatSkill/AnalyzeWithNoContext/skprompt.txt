@@ -1,0 +1,45 @@
+ACT LIKE YOU ARE A JAVA DEVELOPPER.
+YOU NEED TO MIGRATE A WEB APPLICATION RUNNING ON PREMISE TO MICROSOFT AZURE.
+YOU'VE BEEN TOLD THE FOLLOWING CODE HAS A PROBLEM AND WILL NOT WORK PROPERLY IN A DISTRIBUTED CLOUD ENVIRONMENT.
+
++++++
+  public synchronized Player getPlayer(HttpServletRequest request, HttpServletResponse response, Integer playerId, boolean remoteControlEnabled, boolean isStreamRequest) throws Exception {
+    Player player = this.getPlayerById(playerId);
+
+    String username = this.securityService.getCurrentUsername(request);
+    if (player == null && remoteControlEnabled) {
+      player = this.getPlayerById(this.getPlayerIdFromCookie(request, username));
+    }
+
+    if (player == null) {
+      player = new Player();
+      player.setLastSeen(Instant.now());
+      this.populatePlayer(player, username, request, isStreamRequest);
+      this.createPlayer(player);
+    } else if (this.populatePlayer(player, username, request, isStreamRequest)) {
+      this.updatePlayer(player);
+    }
+
+    if (response != null) {
+      String cookieName = "player-" + StringUtil.utf8HexEncode(username);
+      Cookie cookie = new Cookie(cookieName, String.valueOf(player.getId()));
+      cookie.setMaxAge(31536000);
+      cookie.setHttpOnly(true);
+      String path = request.getContextPath();
+      if (StringUtils.isEmpty(path)) {
+        path = "/";
+      }
+
+      cookie.setPath(path);
+      response.addCookie(cookie);
+    }
+
+    if (remoteControlEnabled && request.getSession() != null) {
+      request.getSession().setAttribute("player", player.getId());
+    }
+
+    return player;
+  }
++++++
+
+WHAT WOULD YOU DO TO MAKE THE PREVIOUS CODE WORK?

@@ -1,0 +1,64 @@
+ACT LIKE YOU ARE A JAVA DEVELOPPER.
+YOU NEED TO MIGRATE A WEB APPLICATION RUNNING ON PREMISE TO MICROSOFT AZURE.
+TO HELP YOU IN MIGRATING THE APPLICATION, YOU ARE USING WINDUP.
+WINDUP IS A RULE-BASED MIGRATION TOOL THAT ANALYZES THE APIS, TECHNOLOGIES, AND ARCHITECTURES USED BY THE APPLICATIONS YOU PLAN TO MIGRATE.
+WINDUP GIVES YOU THE FOLLOWING RECOMMENDATION:
+
++++++
+When migrating an application that stores data in an HTTP Session to Azure, it's important to consider that the HTTP Session is not a suitable mechanism for maintaining state in a cloud environment due to scaling in and out as load changes.
+Instead, you can leverage Azure Cache for Redis to achieve session management in a cloud-native way.
+
+* Provide Azure Cache for Redis: Azure Cache for Redis is a fully managed, highly scalable, and distributed caching service. It allows you to store and manage session data in-memory, providing fast and efficient access.
+
+* Configure Azure Cache for Redis: Configure the cache settings, such as cache size, eviction policies, and access control.
+
+* Update session management: Modify your application's session management code to use Azure Cache for Redis. Replace the usage of HTTP Session objects with the appropriate Redis-based session management implementation.
+
+* Store and retrieve session data: Use the Azure Cache for Redis client libraries or connectors within your application to store and retrieve session data. This ensures that session state is securely managed and accessible across multiple instances of your application.
+
+* Test and validate: Test your application to ensure that session state is maintained correctly using Azure Cache for Redis. Verify that session data is stored and retrieved accurately across multiple instances of your application.
++++++
+
+WINDUP INDICATES THAT THE FOLLOWING CODE HAS A PROBLEM AND WILL NOT WORK PROPERLY IN A DISTRIBUTED CLOUD ENVIRONMENT.
+
++++++
+  public synchronized Player getPlayer(HttpServletRequest request, HttpServletResponse response, Integer playerId, boolean remoteControlEnabled, boolean isStreamRequest) throws Exception {
+    Player player = this.getPlayerById(playerId);
+
+    String username = this.securityService.getCurrentUsername(request);
+    if (player == null && remoteControlEnabled) {
+      player = this.getPlayerById(this.getPlayerIdFromCookie(request, username));
+    }
+
+    if (player == null) {
+      player = new Player();
+      player.setLastSeen(Instant.now());
+      this.populatePlayer(player, username, request, isStreamRequest);
+      this.createPlayer(player);
+    } else if (this.populatePlayer(player, username, request, isStreamRequest)) {
+      this.updatePlayer(player);
+    }
+
+    if (response != null) {
+      String cookieName = "player-" + StringUtil.utf8HexEncode(username);
+      Cookie cookie = new Cookie(cookieName, String.valueOf(player.getId()));
+      cookie.setMaxAge(31536000);
+      cookie.setHttpOnly(true);
+      String path = request.getContextPath();
+      if (StringUtils.isEmpty(path)) {
+        path = "/";
+      }
+
+      cookie.setPath(path);
+      response.addCookie(cookie);
+    }
+
+    if (remoteControlEnabled && request.getSession() != null) {
+      request.getSession().setAttribute("player", player.getId());
+    }
+
+    return player;
+  }
++++++
+
+WHAT WOULD YOU DO TO MAKE THE PREVIOUS CODE WORK?

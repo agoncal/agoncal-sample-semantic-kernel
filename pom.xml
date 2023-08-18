@@ -11,6 +11,7 @@
   <name>Semantic Kernel Samples</name>
 
   <modules>
+    <module>appcat</module>
     <module>simple</module>
     <module>superheroes</module>
     <module>quarkus</module>
