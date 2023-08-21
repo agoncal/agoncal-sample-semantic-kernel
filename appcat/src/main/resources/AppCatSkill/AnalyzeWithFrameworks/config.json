@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "description": "Analyzing an application with no context.",
+  "description": "Analyzing an application with context: AppCAT incident and list of technologies",
   "type": "completion",
   "completion": {
     "max_tokens": 10000,
