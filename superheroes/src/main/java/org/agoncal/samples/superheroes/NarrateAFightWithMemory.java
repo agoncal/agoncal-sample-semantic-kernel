@@ -7,6 +7,7 @@ import com.microsoft.semantickernel.ai.embeddings.EmbeddingGeneration;
 import com.microsoft.semantickernel.connectors.ai.openai.util.OpenAIClientProvider;
 import com.microsoft.semantickernel.exceptions.ConfigurationException;
 import com.microsoft.semantickernel.memory.MemoryStore;
+import com.microsoft.semantickernel.memory.VolatileMemoryStore;
 import com.microsoft.semantickernel.orchestration.SKContext;
 import com.microsoft.semantickernel.skilldefinition.ReadOnlyFunctionCollection;
 import com.microsoft.semantickernel.textcompletion.CompletionSKFunction;
@@ -32,7 +33,8 @@ public class NarrateAFightWithMemory {
     EmbeddingGeneration textEmbeddingGeneration = SKBuilders.textEmbeddingGeneration().withOpenAIClient(client).withModelId("text-embedding-ada-002").build();
 
     // Create a memory store
-    MemoryStore memoryStore = SKBuilders.memoryStore().build();
+    MemoryStore memoryStore = new VolatileMemoryStore.Builder().build();
+
 
     // Instantiates the Kernel
     Kernel kernel = SKBuilders.kernel()
