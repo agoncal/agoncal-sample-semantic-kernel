@@ -22,7 +22,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <!-- Semantic Kernel -->
-    <version.semantic-kernel>0.2.8-alpha</version.semantic-kernel>
+    <version.semantic-kernel>0.2.9-alpha</version.semantic-kernel>
     <!-- Other -->
     <version.log4j2>2.20.0</version.log4j2>
     <version.junit>5.9.0</version.junit>

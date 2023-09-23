@@ -24,7 +24,7 @@ public class RedactPassword {
     OpenAIAsyncClient client = OpenAIClientProvider.getClient();
 
     // Creates an instance of the TextCompletion service
-    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).setModelId("deploy-semantic-kernel").build();
+    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).withModelId("deploy-semantic-kernel").build();
 
     // Instantiates the Kernel
     Kernel kernel = SKBuilders.kernel().withDefaultAIService(textCompletion).build();

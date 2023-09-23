@@ -26,10 +26,10 @@ public class NarrateAFightWithMemory {
     OpenAIAsyncClient client = OpenAIClientProvider.getClient();
 
     // Creates an instance of the TextCompletion service
-    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).setModelId("deploy-semantic-kernel").build();
+    TextCompletion textCompletion = SKBuilders.chatCompletion().withOpenAIClient(client).withModelId("deploy-semantic-kernel").build();
 
     // Create an instance of the EmbeddingGeneration service
-    EmbeddingGeneration textEmbeddingGeneration = SKBuilders.textEmbeddingGenerationService().withOpenAIClient(client).setModelId("text-embedding-ada-002").build();
+    EmbeddingGeneration textEmbeddingGeneration = SKBuilders.textEmbeddingGeneration().withOpenAIClient(client).withModelId("text-embedding-ada-002").build();
 
     // Create a memory store
     MemoryStore memoryStore = SKBuilders.memoryStore().build();
