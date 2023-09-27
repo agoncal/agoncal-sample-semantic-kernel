@@ -1,0 +1,47 @@
+ACT LIKE YOU ARE A SENIR CLOUD ARCHITECT.
+YOU NEED TO MIGRATE A WEB APPLICATION RUNNING ON PREMISE TO MICROSOFT AZURE.
+THE CHOSEN MIGRATION TARGET IS AZURE APP SERVICE.
+
+HERE IS THE LIST OF THE FRAMEWORKS AND TECHNOLOGIES USED BY THE APPLICATION:
+
++++++
+* Java EE JAXB
+* Servlet
+* Mail
+* Spring Messaging Client
+* Common annotations
+* Tomcat
+* Spring Boot
+* Micrometer
+* Spring
+* AspectJ
+* Spring Boot Cache
+* ehcache
+* Cache API
+* MySQL Driver
+* Hibernate
+* Bean Validation
+* Spring Boot Auto-configuration
+* Spring Boot Component Scan
+* Spring Boot Configuration
+* SLF4J
+* Spring Boot Actuator
+* Spring Security
+* Geronimo JTA
+* Spring MVC
+* JSP Page
++++++
+
+HERE IS THE LIST OF THE MAIN MIGRATION INCIDENTS:
+
++++++
+* This file system path is Microsoft Windows platform dependent. It needs to be replaced with a Linux-style path.
+* An application running inside a container could lose access to a file in local storage.
+* The application embeds an Ehcache library.
+* The application embeds a library that provides caching.
+* The application embeds the Spring Boot Cache library.
+* An application running inside a container could lose access to a file in local storage.
+* Native Processes might not run in a cloud or container environment.
++++++
+
+GIVEN THE LIST OF THE FRAMEWORKS AND TECHNOLOGIES USED BY THE APPLICATION AND THE MAIN MIGRATION INCIDENTS, COME UP WITH 4 OR 5 MAIN TASKS TO BE DONE TO SUCCESSFULLY MIGRATE THE APPLICATION TO AZURE APP SERVICE.
