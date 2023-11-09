@@ -9,6 +9,13 @@ COGNITIVE_DEPLOYMENT="deploy-$PROJECT"
 LOCATION="eastus"
 TAG="$PROJECT"
 
+echo PROJECT = $PROJECT
+echo RESOURCE_GROUP = $RESOURCE_GROUP
+echo COGNITIVE_SERVICE = $COGNITIVE_SERVICE
+echo COGNITIVE_DEPLOYMENT = $COGNITIVE_DEPLOYMENT
+echo LOCATION = $LOCATION
+echo TAG = $TAG
+
 
 echo "Creating the resource group..."
 echo "------------------------------"
