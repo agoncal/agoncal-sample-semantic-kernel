@@ -17,16 +17,39 @@
   <dependencies>
     <dependency>
       <groupId>com.microsoft.semantic-kernel</groupId>
-      <artifactId>semantickernel-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.microsoft.semantic-kernel</groupId>
-      <artifactId>semantickernel-planners</artifactId>
+      <artifactId>semantickernel-api</artifactId>
     </dependency>
     <dependency>
       <groupId>com.microsoft.semantic-kernel</groupId>
       <artifactId>semantickernel-connectors-ai-openai</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-core</artifactId>
+      <!-- TODO: scope should be runtime, but VolatileMemoryStore is an issue -->
+      <!-- <scope>runtime</scope> -->
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-settings-loader</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.semantic-kernel</groupId>
+      <artifactId>semantickernel-plugin-core</artifactId>
+    </dependency>
+
+<!--    <dependency>-->
+<!--      <groupId>com.microsoft.semantic-kernel</groupId>-->
+<!--      <artifactId>semantickernel-core</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>com.microsoft.semantic-kernel</groupId>-->
+<!--      <artifactId>semantickernel-planners</artifactId>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>com.microsoft.semantic-kernel</groupId>-->
+<!--      <artifactId>semantickernel-connectors-ai-openai</artifactId>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
