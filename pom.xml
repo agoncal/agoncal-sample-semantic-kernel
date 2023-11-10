@@ -12,6 +12,7 @@
 
   <modules>
     <module>appcat</module>
+    <module>chat</module>
     <module>simple</module>
     <module>superheroes</module>
     <module>quarkus</module>
