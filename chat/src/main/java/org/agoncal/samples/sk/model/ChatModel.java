@@ -20,6 +20,14 @@ public class ChatModel {
 
         public Message() {
         }
+
+        @Override
+        public String toString() {
+            return "Message{" +
+                "content='" + content + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+        }
     }
 
     public static class ChatDebugDetails {
@@ -60,7 +68,7 @@ public class ChatModel {
             this.message = message;
         }
 
-        public Choice(int index, String content, String role ) {
+        public Choice(int index, String content, String role) {
             this.index = index;
             this.message = new ChatMessage(content, role);
         }
@@ -85,7 +93,7 @@ public class ChatModel {
         HYBRID, VECTORS, TEXT
     }
 
-    public static class ChatRequestOptions {
+    public static class ChatRequest {
         public List<Message> messages;
         @SchemaProperty(name = "stream", defaultValue = "false")
         public boolean stream;
@@ -94,6 +102,19 @@ public class ChatModel {
         public int chunkIntervalMs;
         public String apiUrl;
         public ChatRequestOverrides overrides;
+
+        @Override
+        public String toString() {
+            return "ChatRequest{" +
+                "messages=" + messages +
+                ", stream=" + stream +
+                ", approach=" + approach +
+                ", suggestFollowupQuestions=" + suggestFollowupQuestions +
+                ", chunkIntervalMs=" + chunkIntervalMs +
+                ", apiUrl='" + apiUrl + '\'' +
+                ", overrides=" + overrides +
+                '}';
+        }
     }
 
     public static class ChatRequestOverrides {
@@ -106,5 +127,20 @@ public class ChatModel {
         public String promptTemplate;
         public String promptTemplatePrefix;
         public String promptTemplateSuffix;
+
+        @Override
+        public String toString() {
+            return "ChatRequestOverrides{" +
+                "retrievalMode=" + retrievalMode +
+                ", semanticRanker=" + semanticRanker +
+                ", semanticCaptions=" + semanticCaptions +
+                ", excludeCategory='" + excludeCategory + '\'' +
+                ", top=" + top +
+                ", temperature=" + temperature +
+                ", promptTemplate='" + promptTemplate + '\'' +
+                ", promptTemplatePrefix='" + promptTemplatePrefix + '\'' +
+                ", promptTemplateSuffix='" + promptTemplateSuffix + '\'' +
+                '}';
+        }
     }
 }

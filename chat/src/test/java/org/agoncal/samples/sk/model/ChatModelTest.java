@@ -28,7 +28,7 @@ public class ChatModelTest {
         overrides.temperature = 0.234;
         overrides.semanticRanker = false;
 
-        ChatModel.ChatRequestOptions requestOptions = new ChatModel.ChatRequestOptions();
+        ChatModel.ChatRequest requestOptions = new ChatModel.ChatRequest();
         requestOptions.chunkIntervalMs = 1000;
         requestOptions.apiUrl = "http://api.url";
         requestOptions.approach = ChatModel.Approaches.RRR;
